@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\VoteController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,22 +25,21 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group([
     'middleware' => 'api',
     'prefix' => 'auth'
-
 ], function () {
     Route::post('login', [AuthController::class, 'login']);
     Route::post('register', [AuthController::class, 'register']);
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::get('user-profile', [AuthController::class, 'userProfile']);
-    Route::post('/movies', [MovieController::class,'store']);
-    Route::get('/movies', [MovieController::class, 'index']);
+    Route::post('/products', [ProductController::class,'store']);
 });
 
 Route::group([
     'middleware' => 'api',
 ], function () {
-    Route::post('/movies', [MovieController::class,'store']);
-    Route::get('/movies', [MovieController::class, 'index']);
+    Route::get('/product', [ProductController::class, 'show']);
+    Route::get('/products', [ProductController::class, 'index']);
+    Route::post('/products', [ProductController::class,'store']);
 });
 
 Route::group([
